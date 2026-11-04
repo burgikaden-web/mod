@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "oneforall",
+  "version": "${version}",
+  "name": "One For All",
+  "description": "Build One For All through combat, then unleash superhuman movement, Blackwhip, Danger Sense, and Detroit Smash.",
+  "authors": ["One For All Fabric Mod contributors"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["dev.kaden.oneforall.OneForAllMod"],
+    "client": ["dev.kaden.oneforall.client.OneForAllClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "fabric-api": ">=0.92.0",
+    "minecraft": "~1.20.1",
+    "java": ">=17"
+  }
+}
