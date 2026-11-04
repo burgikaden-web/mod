@@ -1,8 +1,9 @@
-
 name: Build One For All Fabric Mod
 
 on:
   push:
+    branches: [main, "feature/**"]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
