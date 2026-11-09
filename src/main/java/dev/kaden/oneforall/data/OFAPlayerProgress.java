@@ -8,6 +8,7 @@ public final class OFAPlayerProgress {
     private int energy;
     private boolean active;
     private boolean dangerSense;
+    private String quirkId = "one_for_all";
 
     public OFAPlayerProgress() {
         this(0, MAX_ENERGY, true, false);
@@ -24,6 +25,8 @@ public final class OFAPlayerProgress {
     public int getEnergy() { return energy; }
     public boolean isActive() { return active; }
     public boolean isDangerSenseActive() { return dangerSense; }
+    public String getQuirkId() { return quirkId; }
+    public void setQuirkId(String quirkId) { this.quirkId = quirkId; }
     public int getPercentage() { return Math.min(100, 5 + vestiges * 2); }
     public boolean hasBlackwhip() { return vestiges >= 10; }
     public boolean hasDangerSense() { return vestiges >= 20; }
