@@ -5,5 +5,4 @@ pluginManagement {
         mavenCentral()
     }
 }
-
-rootProject.name = 'one-for-all-fabric'
+rootProject.name = 'half-cold-half-hot-fabric'
