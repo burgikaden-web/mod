@@ -38,11 +38,7 @@ public final class OFANetwork {
                         player.sendMessage(net.minecraft.text.Text.literal("Danger Sense unlocks at 20 vestiges."), true);
                         return;
                     }
-                    if (progress.isDangerSenseActive()) {
-                        progress.setDangerSense(false);
-                    } else {
-                        progress.setDangerSense(true);
-                    }
+                    progress.toggleDangerSense();
                     OFAWorldState.get(server).markProgressDirty();
                     player.sendMessage(net.minecraft.text.Text.literal(progress.isDangerSenseActive()
                             ? "Danger Sense enabled" : "Danger Sense disabled"), true);
