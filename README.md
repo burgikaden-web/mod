@@ -1,65 +1,42 @@
-# One For All — Fabric 1.20.1
+# Half-Cold Half-Hot — Fabric 1.20.1
 
-A server-authoritative Fabric mod that adds a progression-based One For All quirk to Minecraft Java Edition 1.20.1.
+A fan-made Minecraft Java mod inspired by Shoto Todoroki's ice-and-fire quirk from *My Hero Academia*.
 
-## Features
+## Requirements
+- Minecraft Java Edition 1.20.1
+- Fabric Loader 0.16.14 or newer
+- Fabric API 0.92.12+1.20.1
+- Java 17
 
-- **Vestige progression:** earn vestiges by defeating hostile mobs and high-health boss entities. Progress is saved per player in the server world's persistent state.
-- **Scaling power:** One For All percentage increases with vestiges and scales attack damage, movement speed, and Jump Boost.
-- **Blackwhip:** unlock at 10 vestiges. Grapple toward the block you are looking at, and briefly slow/pull nearby hostile mobs for crowd control.
-- **Danger Sense:** unlock at 20 vestiges. Toggle client-side glowing outlines on nearby hostile mobs.
-- **Detroit Smash:** unlock at 5 vestiges. Spend energy to damage and knock back nearby hostile mobs with a ring-shaped particle shockwave. The effect does not destroy blocks.
-- **Energy:** abilities consume energy; energy regenerates automatically.
-- **HUD and keybinds:** shows percentage, vestiges, energy, and activation state. Keybinds can be changed in Minecraft's Controls menu.
-- **Client/server split:** progression, damage, cooldown costs, and ability effects are handled by the server; the client handles input, HUD, and Danger Sense outlines.
+No animation library or extra mod dependency is required.
 
-## Default controls
+## Abilities and controls
 
-| Action | Default key | Unlock |
-| --- | --- | ---: |
-| Toggle One For All | `O` | Always |
-| Blackwhip | `R` | 10 vestiges |
-| Toggle Danger Sense | `G` | 20 vestiges |
-| Detroit Smash | `V` | 5 vestiges |
+| Ability | Default key |
+| --- | --- |
+| Ice Wall | R |
+| Ice Spikes | G |
+| Ice Slide | H |
+| Fire Blast | V |
+| Jet Burn | B |
+| Flashfreeze Heatwave | N |
 
-Change these under **Options → Controls → Key Binds → One For All**.
+Change keys in **Options → Controls → Key Binds → Half-Cold Half-Hot Abilities**.
 
-## Progression and balance
+## Ability behavior
+- **Ice Wall:** forms a packed-ice barrier in front of the player.
+- **Ice Spikes:** raises a line of blue-ice spikes and freezes nearby targets.
+- **Ice Slide:** gives the player a forward burst and leaves an ice patch.
+- **Fire Blast:** sends a visible flame burst forward and ignites targets in its path.
+- **Jet Burn:** releases a close-range flame burst.
+- **Flashfreeze Heatwave:** combines freezing, fire, knockback, and mixed ice/flame particles in an area.
 
-| Defeated target | Vestiges |
-| --- | ---: |
-| Hostile mob | +1 |
-| High-health target (80+ max health) | +3 |
-| Boss-scale target (200+ max health) | +6 |
+Abilities are processed on the server in multiplayer. Install the mod and Fabric API on both server and client for multiplayer play.
 
-Vestiges are capped at 50. The displayed percentage is `min(100, 5 + vestiges × 2)`. Energy is capped at 100 and regenerates by 1 every 10 player ticks. Blackwhip costs 20 energy; Detroit Smash costs 40 energy.
+## Build and install
+GitHub Actions builds the mod with Java 17 and Gradle 8.7. Download the artifact named **half-cold-half-hot-fabric-1.20.1** from the completed workflow run.
 
-The ability thresholds, progression rewards, and energy costs are constants in `OFAPlayerProgress` and `OFAAbilities`, so they can be adjusted in source.
+The versioned JAR name is **HalfColdHalfHot-MC1.20.1-Fabric-1.0.0.jar**. Put it and Fabric API in your Minecraft 1.20.1 Fabric instance's mods folder.
 
-## Build the mod on Windows (no Gradle setup required)
-
-You do **not** need to install Gradle yourself. Double-click `BUILD-MOD.bat` in the extracted project folder. The script automatically downloads a compatible Gradle version and, if needed, a portable Java 17 JDK into the project's `.tools` folder, then builds the mod.
-
-The first run needs an internet connection and may download Minecraft/Fabric development libraries. When it finishes, install `build\libs\one-for-all-1.0.0.jar` in your Minecraft 1.20.1 Fabric instance's `mods` folder.
-
-Do not put the `-sources.jar` file in your mods folder. The automated build script is for Windows. On other operating systems, the project still requires Java 17+ and Gradle 8.6.
-
-### Install
-
-1. Install Fabric Loader for Minecraft 1.20.1.
-2. Put the built `one-for-all-1.0.0.jar` in the Minecraft instance's `mods` folder.
-3. Install the matching Fabric API build in the same `mods` folder.
-4. For multiplayer, install the mod and Fabric API on both the dedicated server and each connecting client.
-5. Launch the Fabric 1.20.1 profile.
-
-## Compatibility notes
-
-The mod uses vanilla player attributes, status effects, Fabric events, and namespaced networking. It does not replace player models, overwrite vanilla entity classes, or add mandatory dependencies on other superhero mods. That design minimizes conflicts, but it is **not a guarantee of compatibility** with every superhero/combat mod; attribute modifiers, keybind defaults, or custom entity types can still overlap. Test modpacks in a separate world before using them in an established save.
-
-## GitHub setup
-
-The project is ready to place in a Git repository. Create an empty repository, extract this folder into it, then commit the complete project. The connected GitHub account had no repositories available when this project was generated, so no remote repository or commit was created from this session.
-
-## License and fan content
-
-Source code is MIT-licensed. One For All, Blackwhip, Danger Sense, and Detroit Smash are fan references to *My Hero Academia* and are not affiliated with or endorsed by the rights holders. Add your own original or properly licensed textures, sounds, and branding if you expand the mod.
+## Current scope
+This first release focuses on functional abilities and vanilla particle/block effects. It does not include a custom player model, bespoke animations, or custom textures yet. The mod does not require Player Animator.
