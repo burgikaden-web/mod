@@ -37,6 +37,7 @@ public final class OFAAbilities {
             return;
         }
 
+        OFAAnimationController.playBlackwhip(player);
         ServerWorld world = player.getServerWorld();
         HitResult hit = player.raycast(24.0, 1.0F, false);
         Vec3d start = player.getCameraPosVec(1.0F);
@@ -80,6 +81,7 @@ public final class OFAAbilities {
             return;
         }
 
+        OFAAnimationController.playSmash(player);
         ServerWorld world = player.getServerWorld();
         int percentage = progress.getPercentage();
         double radius = 6.5;
@@ -108,6 +110,50 @@ public final class OFAAbilities {
         }
         world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, px, py, pz, 1, 0.0, 0.0, 0.0, 0.0);
         world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 1.3F, 0.75F);
+        OFAWorldState.get(player.getServer()).markProgressDirty();
+        OFANetwork.sendSync(player, progress);
+    }
+
+
+    public static void useDelawareSmash(ServerPlayerEntity player) {
+        OFAPlayerProgress progress = OFAWorldState.get(player.getServer()).getPlayer(player.getUuid());
+        if (!progress.isActive()) {
+            player.sendMessage(Text.literal("Activate One For All first."), true);
+            return;
+        }
+        if (!progress.hasDelawareSmash()) {
+            player.sendMessage(Text.literal("Delaware Smash unlocks at 2 vestiges."), true);
+            return;
+        }
+        if (!progress.spendEnergy(15)) {
+            player.sendMessage(Text.literal("Not enough energy. Wait for it to recharge."), true);
+            return;
+        }
+
+        OFAAnimationController.playDelawareSmash(player);
+        ServerWorld world = player.getServerWorld();
+        Vec3d start = player.getCameraPosVec(1.0F);
+        HitResult hit = player.raycast(22.0, 1.0F, false);
+        Vec3d end = hit.getPos();
+        Box impactArea = new Box(end.x - 2.0, end.y - 2.0, end.z - 2.0,
+                end.x + 2.0, end.y + 2.0, end.z + 2.0);
+        float damage = (float) (4.0 + progress.getPercentage() * 0.05);
+
+        for (HostileEntity mob : world.getEntitiesByClass(HostileEntity.class, impactArea,
+                entity -> entity.isAlive() && entity.squaredDistanceTo(player) <= 22.0 * 22.0)) {
+            mob.damage(world.getDamageSources().playerAttack(player), damage);
+            mob.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 30, 0, true, true, true));
+        }
+
+        Vec3d difference = end.subtract(start);
+        int points = Math.max(8, Math.min(36, (int) (difference.length() * 2.0)));
+        for (int i = 0; i <= points; i++) {
+            Vec3d point = start.add(difference.multiply((double) i / points));
+            world.spawnParticles(ParticleTypes.CRIT, point.x, point.y, point.z, 2, 0.035, 0.035, 0.035, 0.01);
+            world.spawnParticles(ParticleTypes.CLOUD, point.x, point.y, point.z, 1, 0.02, 0.02, 0.02, 0.005);
+        }
+        world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP,
+                SoundCategory.PLAYERS, 1.0F, 0.7F);
         OFAWorldState.get(player.getServer()).markProgressDirty();
         OFANetwork.sendSync(player, progress);
     }
