@@ -1,7 +1,6 @@
 package dev.kaden.oneforall.network;
 
 import dev.kaden.oneforall.OFAAbilities;
-import dev.kaden.oneforall.OFAAnimationController;
 import dev.kaden.oneforall.OFAProgression;
 import dev.kaden.oneforall.data.OFAPlayerProgress;
 import dev.kaden.oneforall.data.OFAWorldState;
@@ -20,8 +19,6 @@ public final class OFANetwork {
                     progress.setActive(!progress.isActive());
                     OFAWorldState.get(server).markProgressDirty();
                     OFAProgression.refreshAttributes(player, progress);
-                    if (progress.isActive()) OFAAnimationController.playFullCowling(player);
-                    else OFAAnimationController.stopFullCowling(player);
                     player.sendMessage(net.minecraft.text.Text.literal(progress.isActive()
                             ? "One For All activated" : "One For All deactivated"), true);
                     sendSync(player, progress);
@@ -41,7 +38,11 @@ public final class OFANetwork {
                         player.sendMessage(net.minecraft.text.Text.literal("Danger Sense unlocks at 20 vestiges."), true);
                         return;
                     }
-                    progress.toggleDangerSense();
+                    if (progress.isDangerSenseActive()) {
+                        progress.setDangerSense(false);
+                    } else {
+                        progress.setDangerSense(true);
+                    }
                     OFAWorldState.get(server).markProgressDirty();
                     player.sendMessage(net.minecraft.text.Text.literal(progress.isDangerSenseActive()
                             ? "Danger Sense enabled" : "Danger Sense disabled"), true);
