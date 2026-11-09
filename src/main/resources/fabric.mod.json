@@ -3,7 +3,7 @@
   "id": "oneforall",
   "version": "${version}",
   "name": "One For All",
-  "description": "Build One For All through combat, then unleash superhuman movement, Blackwhip, Danger Sense, and Detroit Smash.",
+  "description": "A One For All progression and abilities mod for Minecraft 1.20.1.",
   "authors": ["One For All Fabric Mod contributors"],
   "license": "MIT",
   "environment": "*",

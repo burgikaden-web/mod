@@ -2,6 +2,7 @@ package dev.kaden.oneforall.network;
 
 import dev.kaden.oneforall.OFAAbilities;
 import dev.kaden.oneforall.OFAProgression;
+import dev.kaden.oneforall.QuirkAbilities;
 import dev.kaden.oneforall.data.OFAPlayerProgress;
 import dev.kaden.oneforall.data.OFAWorldState;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -23,6 +24,13 @@ public final class OFANetwork {
                             ? "One For All activated" : "One For All deactivated"), true);
                     sendSync(player, progress);
                 }));
+
+        ServerPlayNetworking.registerGlobalReceiver(OFAIds.QUIRK_ABILITY_1,
+                (server, player, handler, buf, responseSender) -> server.execute(() -> QuirkAbilities.use(player, 1)));
+        ServerPlayNetworking.registerGlobalReceiver(OFAIds.QUIRK_ABILITY_2,
+                (server, player, handler, buf, responseSender) -> server.execute(() -> QuirkAbilities.use(player, 2)));
+        ServerPlayNetworking.registerGlobalReceiver(OFAIds.QUIRK_ABILITY_3,
+                (server, player, handler, buf, responseSender) -> server.execute(() -> QuirkAbilities.use(player, 3)));
 
         ServerPlayNetworking.registerGlobalReceiver(OFAIds.BLACKWHIP,
                 (server, player, handler, buf, responseSender) -> server.execute(() -> OFAAbilities.useBlackwhip(player)));
@@ -47,6 +55,9 @@ public final class OFANetwork {
 
         ServerPlayNetworking.registerGlobalReceiver(OFAIds.DETROIT_SMASH,
                 (server, player, handler, buf, responseSender) -> server.execute(() -> OFAAbilities.useDetroitSmash(player)));
+
+        ServerPlayNetworking.registerGlobalReceiver(OFAIds.DELAWARE_SMASH,
+                (server, player, handler, buf, responseSender) -> server.execute(() -> OFAAbilities.useDelawareSmash(player)));
     }
 
     public static void sendSync(ServerPlayerEntity player, OFAPlayerProgress progress) {
@@ -59,6 +70,7 @@ public final class OFANetwork {
         buf.writeBoolean(progress.hasBlackwhip());
         buf.writeBoolean(progress.hasDangerSense());
         buf.writeBoolean(progress.hasDetroitSmash());
+        buf.writeString(progress.getQuirkId());
         ServerPlayNetworking.send(player, OFAIds.SYNC, buf);
     }
 }
