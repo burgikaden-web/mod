@@ -24,7 +24,7 @@ public final class OneForAllClient implements ClientModInitializer {
     private static KeyBinding blackwhipKey;
     private static KeyBinding dangerSenseKey;
     private static KeyBinding smashKey;
-    private static KeyBinding delawareKey;
+    private static KeyBinding delawareKey;\n    private static KeyBinding quirkAbility1Key;\n    private static KeyBinding quirkAbility2Key;\n    private static KeyBinding quirkAbility3Key;
     private static final Set<HostileEntity> markedEntities = new HashSet<>();
 
     @Override
@@ -33,7 +33,7 @@ public final class OneForAllClient implements ClientModInitializer {
         blackwhipKey = register("key.oneforall.blackwhip", GLFW.GLFW_KEY_R);
         dangerSenseKey = register("key.oneforall.danger_sense", GLFW.GLFW_KEY_G);
         smashKey = register("key.oneforall.detroit_smash", GLFW.GLFW_KEY_V);
-        delawareKey = register("key.oneforall.delaware_smash", GLFW.GLFW_KEY_B);
+        delawareKey = register("key.oneforall.delaware_smash", GLFW.GLFW_KEY_B);\n        quirkAbility1Key = register("key.oneforall.quirk_ability_1", GLFW.GLFW_KEY_1);\n        quirkAbility2Key = register("key.oneforall.quirk_ability_2", GLFW.GLFW_KEY_2);\n        quirkAbility3Key = register("key.oneforall.quirk_ability_3", GLFW.GLFW_KEY_3);
 
         ClientPlayNetworking.registerGlobalReceiver(OFAIds.SYNC, (client, handler, buf, responseSender) -> {
             int vestiges = buf.readInt();
@@ -54,7 +54,7 @@ public final class OneForAllClient implements ClientModInitializer {
                 while (blackwhipKey.wasPressed()) ClientPlayNetworking.send(OFAIds.BLACKWHIP, PacketByteBufs.empty());
                 while (dangerSenseKey.wasPressed()) ClientPlayNetworking.send(OFAIds.DANGER_SENSE, PacketByteBufs.empty());
                 while (smashKey.wasPressed()) ClientPlayNetworking.send(OFAIds.DETROIT_SMASH, PacketByteBufs.empty());
-                while (delawareKey.wasPressed()) ClientPlayNetworking.send(OFAIds.DELAWARE_SMASH, PacketByteBufs.empty());
+                while (delawareKey.wasPressed()) ClientPlayNetworking.send(OFAIds.DELAWARE_SMASH, PacketByteBufs.empty());\n                while (quirkAbility1Key.wasPressed()) ClientPlayNetworking.send(OFAIds.QUIRK_ABILITY_1, PacketByteBufs.empty());\n                while (quirkAbility2Key.wasPressed()) ClientPlayNetworking.send(OFAIds.QUIRK_ABILITY_2, PacketByteBufs.empty());\n                while (quirkAbility3Key.wasPressed()) ClientPlayNetworking.send(OFAIds.QUIRK_ABILITY_3, PacketByteBufs.empty());
             }
             updateDangerHighlights(client);
         });
@@ -102,7 +102,7 @@ public final class OneForAllClient implements ClientModInitializer {
         int barWidth = 124;
         context.fill(x - 5, y - 6, x + barWidth + 5, y + 49, 0x99081018);
         context.drawTextWithShadow(client.textRenderer,
-                Text.literal("ONE FOR ALL  " + OFAClientData.percentage + "%"), x, y, 0xFFFFFFFF);
+                Text.literal(OFAClientData.quirkId.toUpperCase().replace("_", " ") + "  " + OFAClientData.percentage + "%"), x, y, 0xFFFFFFFF);
         context.fill(x, y + 13, x + barWidth, y + 20, 0xFF30343B);
         context.fill(x, y + 13, x + (int) (barWidth * OFAClientData.percentage / 100.0), y + 20, 0xFF28C8A8);
         context.drawTextWithShadow(client.textRenderer,
