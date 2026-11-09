@@ -48,6 +48,7 @@ public final class OFAWorldState extends PersistentState {
                     !playerTag.contains("Active") || playerTag.getBoolean("Active"),
                     playerTag.getBoolean("DangerSense")
             );
+            progress.setQuirkId(playerTag.contains("Quirk") ? playerTag.getString("Quirk") : "one_for_all");
             state.players.put(uuid, progress);
         }
         return state;
@@ -64,6 +65,7 @@ public final class OFAWorldState extends PersistentState {
             playerTag.putInt("Energy", progress.getEnergy());
             playerTag.putBoolean("Active", progress.isActive());
             playerTag.putBoolean("DangerSense", progress.isDangerSenseActive());
+            playerTag.putString("Quirk", progress.getQuirkId());
             list.add(playerTag);
         }
         nbt.put("Players", list);
