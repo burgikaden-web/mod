@@ -20,36 +20,18 @@ public final class OFAPlayerProgress {
         this.dangerSense = dangerSense;
     }
 
-    public int getVestiges() {
-        return vestiges;
-    }
+    public int getVestiges() { return vestiges; }
+    public int getEnergy() { return energy; }
+    public boolean isActive() { return active; }
+    public boolean isDangerSenseActive() { return dangerSense; }
+    public int getPercentage() { return Math.min(100, 5 + vestiges * 2); }
+    public boolean hasBlackwhip() { return vestiges >= 10; }
+    public boolean hasDangerSense() { return vestiges >= 20; }
+    public boolean hasDetroitSmash() { return vestiges >= 5; }
+    public boolean hasDelawareSmash() { return vestiges >= 2; }
 
-    public int getEnergy() {
-        return energy;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public boolean isDangerSenseActive() {
-        return dangerSense;
-    }
-
-    public int getPercentage() {
-        return Math.min(100, 5 + vestiges * 2);
-    }
-
-    public boolean hasBlackwhip() {
-        return vestiges >= 10;
-    }
-
-    public boolean hasDangerSense() {
-        return vestiges >= 20;
-    }
-
-    public boolean hasDetroitSmash() {
-        return vestiges >= 5;
+    public void setVestiges(int amount) {
+        vestiges = clamp(amount, 0, MAX_VESTIGES);
     }
 
     public boolean addVestiges(int amount) {
@@ -75,9 +57,7 @@ public final class OFAPlayerProgress {
         if (!active) dangerSense = false;
     }
 
-    public void toggleDangerSense() {
-        dangerSense = !dangerSense;
-    }
+    public void toggleDangerSense() { dangerSense = !dangerSense; }
 
     private static int clamp(int value, int min, int max) {
         return Math.max(min, Math.min(max, value));
