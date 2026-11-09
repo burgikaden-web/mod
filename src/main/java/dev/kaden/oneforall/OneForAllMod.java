@@ -22,6 +22,7 @@ public final class OneForAllMod implements ModInitializer {
     public void onInitialize() {
         OFANetwork.registerServerReceivers();
         OFAVestigeCommands.register();
+        QuirkCommands.register();
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             ServerPlayerEntity player = handler.player;
