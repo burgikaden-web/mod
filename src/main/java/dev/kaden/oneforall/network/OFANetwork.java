@@ -1,6 +1,7 @@
 package dev.kaden.oneforall.network;
 
 import dev.kaden.oneforall.OFAAbilities;
+import dev.kaden.oneforall.OFAAnimationController;
 import dev.kaden.oneforall.OFAProgression;
 import dev.kaden.oneforall.data.OFAPlayerProgress;
 import dev.kaden.oneforall.data.OFAWorldState;
@@ -19,6 +20,8 @@ public final class OFANetwork {
                     progress.setActive(!progress.isActive());
                     OFAWorldState.get(server).markProgressDirty();
                     OFAProgression.refreshAttributes(player, progress);
+                    if (progress.isActive()) OFAAnimationController.playFullCowling(player);
+                    else OFAAnimationController.stopFullCowling(player);
                     player.sendMessage(net.minecraft.text.Text.literal(progress.isActive()
                             ? "One For All activated" : "One For All deactivated"), true);
                     sendSync(player, progress);
@@ -47,6 +50,9 @@ public final class OFANetwork {
 
         ServerPlayNetworking.registerGlobalReceiver(OFAIds.DETROIT_SMASH,
                 (server, player, handler, buf, responseSender) -> server.execute(() -> OFAAbilities.useDetroitSmash(player)));
+
+        ServerPlayNetworking.registerGlobalReceiver(OFAIds.DELAWARE_SMASH,
+                (server, player, handler, buf, responseSender) -> server.execute(() -> OFAAbilities.useDelawareSmash(player)));
     }
 
     public static void sendSync(ServerPlayerEntity player, OFAPlayerProgress progress) {
