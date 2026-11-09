@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "id": "oneforall",
+  "id": "halfcoldhot",
   "version": "${version}",
-  "name": "One For All",
-  "description": "Build One For All through combat, then unleash superhuman movement, Blackwhip, Danger Sense, and Detroit Smash.",
-  "authors": ["One For All Fabric Mod contributors"],
+  "name": "Half-Cold Half-Hot",
+  "description": "Wield ice and fire abilities inspired by Shoto Todoroki.",
+  "authors": ["Kaden"],
   "license": "MIT",
   "environment": "*",
   "entrypoints": {
-    "main": ["dev.kaden.oneforall.OneForAllMod"],
-    "client": ["dev.kaden.oneforall.client.OneForAllClient"]
+    "main": ["dev.kaden.halfcoldhot.HalfColdHalfHotMod"],
+    "client": ["dev.kaden.halfcoldhot.client.HalfColdHalfHotClient"]
   },
   "depends": {
     "fabricloader": ">=0.15.0",
