@@ -2,6 +2,7 @@ package dev.kaden.oneforall.network;
 
 import dev.kaden.oneforall.OFAAbilities;
 import dev.kaden.oneforall.OFAProgression;
+import dev.kaden.oneforall.QuirkAbilities;
 import dev.kaden.oneforall.data.OFAPlayerProgress;
 import dev.kaden.oneforall.data.OFAWorldState;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -24,7 +25,7 @@ public final class OFANetwork {
                     sendSync(player, progress);
                 }));
 
-        ServerPlayNetworking.registerGlobalReceiver(OFAIds.BLACKWHIP,
+        ServerPlayNetworking.registerGlobalReceiver(OFAIds.QUIRK_ABILITY_1,\n                (server, player, handler, buf, responseSender) -> server.execute(() -> QuirkAbilities.use(player, 1)));\n        ServerPlayNetworking.registerGlobalReceiver(OFAIds.QUIRK_ABILITY_2,\n                (server, player, handler, buf, responseSender) -> server.execute(() -> QuirkAbilities.use(player, 2)));\n        ServerPlayNetworking.registerGlobalReceiver(OFAIds.QUIRK_ABILITY_3,\n                (server, player, handler, buf, responseSender) -> server.execute(() -> QuirkAbilities.use(player, 3)));\n\n        ServerPlayNetworking.registerGlobalReceiver(OFAIds.BLACKWHIP,
                 (server, player, handler, buf, responseSender) -> server.execute(() -> OFAAbilities.useBlackwhip(player)));
 
         ServerPlayNetworking.registerGlobalReceiver(OFAIds.DANGER_SENSE,
@@ -61,7 +62,7 @@ public final class OFANetwork {
         buf.writeBoolean(progress.isDangerSenseActive());
         buf.writeBoolean(progress.hasBlackwhip());
         buf.writeBoolean(progress.hasDangerSense());
-        buf.writeBoolean(progress.hasDetroitSmash());
+        buf.writeBoolean(progress.hasDetroitSmash());\n        buf.writeString(progress.getQuirkId());
         ServerPlayNetworking.send(player, OFAIds.SYNC, buf);
     }
 }
