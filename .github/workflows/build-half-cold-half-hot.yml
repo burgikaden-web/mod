@@ -1,0 +1,28 @@
+name: Build Half-Cold Half-Hot Fabric Mod
+
+on:
+  push:
+    branches: [feature/half-cold-half-hot]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+      - name: Build Half-Cold Half-Hot
+        run: gradle build --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: half-cold-half-hot-fabric-1.20.1
+          path: build/libs/HalfColdHalfHot-MC1.20.1-Fabric-1.0.0.jar
