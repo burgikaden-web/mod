@@ -18,9 +18,26 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public final class OFAAbilities {
+    private static final Map<UUID, Map<String, Long>> COOLDOWNS = new HashMap<>();
+
     private OFAAbilities() {}
+
+    private static boolean startCooldown(ServerPlayerEntity player, String ability, long ticks) {
+        long now = player.getServerWorld().getTime();
+        Map<String, Long> playerCooldowns = COOLDOWNS.computeIfAbsent(player.getUuid(), ignored -> new HashMap<>());
+        long readyAt = playerCooldowns.getOrDefault(ability, 0L);
+        if (now < readyAt) {
+            player.sendMessage(Text.literal(ability + " is recharging (" + ((readyAt - now + 19) / 20) + "s)."), true);
+            return false;
+        }
+        playerCooldowns.put(ability, now + ticks);
+        return true;
+    }
 
     public static void useBlackwhip(ServerPlayerEntity player) {
         OFAPlayerProgress progress = OFAWorldState.get(player.getServer()).getPlayer(player.getUuid());
@@ -32,12 +49,12 @@ public final class OFAAbilities {
             player.sendMessage(Text.literal("Blackwhip unlocks at 10 vestiges."), true);
             return;
         }
+        if (!startCooldown(player, "Blackwhip", 40)) return;
         if (!progress.spendEnergy(20)) {
             player.sendMessage(Text.literal("Not enough energy. Wait for it to recharge."), true);
             return;
         }
 
-        OFAAnimationController.playBlackwhip(player);
         ServerWorld world = player.getServerWorld();
         Vec3d look = player.getRotationVec(1.0F).normalize();
         Vec3d up = new Vec3d(0.0, 1.0, 0.0);
@@ -150,12 +167,12 @@ public final class OFAAbilities {
             player.sendMessage(Text.literal("Detroit Smash unlocks at 5 vestiges."), true);
             return;
         }
+        if (!startCooldown(player, "Detroit Smash", 60)) return;
         if (!progress.spendEnergy(40)) {
             player.sendMessage(Text.literal("Not enough energy. Wait for it to recharge."), true);
             return;
         }
 
-        OFAAnimationController.playSmash(player);
         ServerWorld world = player.getServerWorld();
         int percentage = progress.getPercentage();
         double radius = 6.5;
@@ -199,12 +216,12 @@ public final class OFAAbilities {
             player.sendMessage(Text.literal("Delaware Smash unlocks at 2 vestiges."), true);
             return;
         }
+        if (!startCooldown(player, "Delaware Smash", 25)) return;
         if (!progress.spendEnergy(15)) {
             player.sendMessage(Text.literal("Not enough energy. Wait for it to recharge."), true);
             return;
         }
 
-        OFAAnimationController.playDelawareSmash(player);
         ServerWorld world = player.getServerWorld();
         Vec3d start = player.getCameraPosVec(1.0F);
         HitResult hit = player.raycast(22.0, 1.0F, false);
