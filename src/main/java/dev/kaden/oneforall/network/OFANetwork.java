@@ -25,7 +25,14 @@ public final class OFANetwork {
                     sendSync(player, progress);
                 }));
 
-        ServerPlayNetworking.registerGlobalReceiver(OFAIds.QUIRK_ABILITY_1,\n                (server, player, handler, buf, responseSender) -> server.execute(() -> QuirkAbilities.use(player, 1)));\n        ServerPlayNetworking.registerGlobalReceiver(OFAIds.QUIRK_ABILITY_2,\n                (server, player, handler, buf, responseSender) -> server.execute(() -> QuirkAbilities.use(player, 2)));\n        ServerPlayNetworking.registerGlobalReceiver(OFAIds.QUIRK_ABILITY_3,\n                (server, player, handler, buf, responseSender) -> server.execute(() -> QuirkAbilities.use(player, 3)));\n\n        ServerPlayNetworking.registerGlobalReceiver(OFAIds.BLACKWHIP,
+        ServerPlayNetworking.registerGlobalReceiver(OFAIds.QUIRK_ABILITY_1,
+                (server, player, handler, buf, responseSender) -> server.execute(() -> QuirkAbilities.use(player, 1)));
+        ServerPlayNetworking.registerGlobalReceiver(OFAIds.QUIRK_ABILITY_2,
+                (server, player, handler, buf, responseSender) -> server.execute(() -> QuirkAbilities.use(player, 2)));
+        ServerPlayNetworking.registerGlobalReceiver(OFAIds.QUIRK_ABILITY_3,
+                (server, player, handler, buf, responseSender) -> server.execute(() -> QuirkAbilities.use(player, 3)));
+
+        ServerPlayNetworking.registerGlobalReceiver(OFAIds.BLACKWHIP,
                 (server, player, handler, buf, responseSender) -> server.execute(() -> OFAAbilities.useBlackwhip(player)));
 
         ServerPlayNetworking.registerGlobalReceiver(OFAIds.DANGER_SENSE,
@@ -62,7 +69,8 @@ public final class OFANetwork {
         buf.writeBoolean(progress.isDangerSenseActive());
         buf.writeBoolean(progress.hasBlackwhip());
         buf.writeBoolean(progress.hasDangerSense());
-        buf.writeBoolean(progress.hasDetroitSmash());\n        buf.writeString(progress.getQuirkId());
+        buf.writeBoolean(progress.hasDetroitSmash());
+        buf.writeString(progress.getQuirkId());
         ServerPlayNetworking.send(player, OFAIds.SYNC, buf);
     }
 }
