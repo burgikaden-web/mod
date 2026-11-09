@@ -28,7 +28,8 @@ jobs:
       - name: Build mod
         run: gradle build --no-daemon
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload uniquely named mod JAR
+        uses: actions/upload-artifact@v4
         with:
-          name: one-for-all-fabric-1.20.1
-          path: build/libs/one-for-all-1.0.0.jar
+          name: OneForAll-MC1.20.1-Fabric-1.0.1
+          path: build/libs/OneForAll-MC1.20.1-Fabric-1.0.1.jar
