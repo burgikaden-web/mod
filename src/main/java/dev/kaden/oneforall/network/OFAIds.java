@@ -10,6 +10,9 @@ public final class OFAIds {
     public static final Identifier DETROIT_SMASH = new Identifier(OneForAllMod.MOD_ID, "detroit_smash");
     public static final Identifier DELAWARE_SMASH = new Identifier(OneForAllMod.MOD_ID, "delaware_smash");
     public static final Identifier SYNC = new Identifier(OneForAllMod.MOD_ID, "sync");
+    public static final Identifier QUIRK_ABILITY_1 = new Identifier(OneForAllMod.MOD_ID, "quirk_ability_1");
+    public static final Identifier QUIRK_ABILITY_2 = new Identifier(OneForAllMod.MOD_ID, "quirk_ability_2");
+    public static final Identifier QUIRK_ABILITY_3 = new Identifier(OneForAllMod.MOD_ID, "quirk_ability_3");
 
     private OFAIds() {}
 }
