@@ -24,6 +24,7 @@ public final class OneForAllClient implements ClientModInitializer {
     private static KeyBinding blackwhipKey;
     private static KeyBinding dangerSenseKey;
     private static KeyBinding smashKey;
+    private static KeyBinding delawareKey;
     private static final Set<HostileEntity> markedEntities = new HashSet<>();
 
     @Override
@@ -32,6 +33,7 @@ public final class OneForAllClient implements ClientModInitializer {
         blackwhipKey = register("key.oneforall.blackwhip", GLFW.GLFW_KEY_R);
         dangerSenseKey = register("key.oneforall.danger_sense", GLFW.GLFW_KEY_G);
         smashKey = register("key.oneforall.detroit_smash", GLFW.GLFW_KEY_V);
+        delawareKey = register("key.oneforall.delaware_smash", GLFW.GLFW_KEY_B);
 
         ClientPlayNetworking.registerGlobalReceiver(OFAIds.SYNC, (client, handler, buf, responseSender) -> {
             int vestiges = buf.readInt();
@@ -52,6 +54,7 @@ public final class OneForAllClient implements ClientModInitializer {
                 while (blackwhipKey.wasPressed()) ClientPlayNetworking.send(OFAIds.BLACKWHIP, PacketByteBufs.empty());
                 while (dangerSenseKey.wasPressed()) ClientPlayNetworking.send(OFAIds.DANGER_SENSE, PacketByteBufs.empty());
                 while (smashKey.wasPressed()) ClientPlayNetworking.send(OFAIds.DETROIT_SMASH, PacketByteBufs.empty());
+                while (delawareKey.wasPressed()) ClientPlayNetworking.send(OFAIds.DELAWARE_SMASH, PacketByteBufs.empty());
             }
             updateDangerHighlights(client);
         });
