@@ -5,7 +5,6 @@ import dev.kaden.oneforall.data.OFAPlayerProgress;
 import dev.kaden.oneforall.data.OFAWorldState;
 import dev.kaden.oneforall.network.OFANetwork;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
@@ -59,7 +58,7 @@ public final class OFAVestigeCommands {
             }));
 
             dispatcher.register(literal("vestiges")
-                    .requires(ServerCommandSource::hasPermissionLevel)
+                    .requires(source -> source.hasPermissionLevel(2))
                     .then(getCommand)
                     .then(setCommand)
                     .then(addCommand));
