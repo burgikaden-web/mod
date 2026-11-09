@@ -12,24 +12,30 @@ import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 public class HalfColdHalfHotClient implements ClientModInitializer {
-    private static KeyBinding iceWall, iceSpikes, iceSlide, fireBlast, jetBurn, flashfreeze;
+    private static KeyBinding mode, iceWall, iceLance, iceSlide, fireBurst, jetBurn, flashfreeze, steamNova, iceArmor;
 
     @Override
     public void onInitializeClient() {
+        mode = key("mode", GLFW.GLFW_KEY_C);
         iceWall = key("ice_wall", GLFW.GLFW_KEY_R);
-        iceSpikes = key("ice_spikes", GLFW.GLFW_KEY_G);
+        iceLance = key("ice_lance", GLFW.GLFW_KEY_G);
         iceSlide = key("ice_slide", GLFW.GLFW_KEY_H);
-        fireBlast = key("fire_blast", GLFW.GLFW_KEY_V);
+        fireBurst = key("fire_burst", GLFW.GLFW_KEY_V);
         jetBurn = key("jet_burn", GLFW.GLFW_KEY_B);
-        flashfreeze = key("flashfreeze_heatwave", GLFW.GLFW_KEY_N);
+        flashfreeze = key("flashfreeze", GLFW.GLFW_KEY_N);
+        steamNova = key("steam_nova", GLFW.GLFW_KEY_M);
+        iceArmor = key("ice_armor", GLFW.GLFW_KEY_J);
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null) return;
+            send(mode, HalfColdHalfHotMod.MODE);
             send(iceWall, HalfColdHalfHotMod.ICE_WALL);
-            send(iceSpikes, HalfColdHalfHotMod.ICE_SPIKES);
+            send(iceLance, HalfColdHalfHotMod.ICE_LANCE);
             send(iceSlide, HalfColdHalfHotMod.ICE_SLIDE);
-            send(fireBlast, HalfColdHalfHotMod.FIRE_BLAST);
+            send(fireBurst, HalfColdHalfHotMod.FIRE_BURST);
             send(jetBurn, HalfColdHalfHotMod.JET_BURN);
-            send(flashfreeze, HalfColdHalfHotMod.FLASHFREEZE_HEATWAVE);
+            send(flashfreeze, HalfColdHalfHotMod.FLASHFREEZE);
+            send(steamNova, HalfColdHalfHotMod.STEAM_NOVA);
+            send(iceArmor, HalfColdHalfHotMod.ICE_ARMOR);
         });
     }
 
