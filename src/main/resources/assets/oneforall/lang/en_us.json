@@ -1,10 +1,13 @@
 {
-  "key.categories.oneforall": "One For All",
+  "key.categories.oneforall": "Spider-Man",
+  "key.oneforall.web_swing": "Web Swing / Attach",
+  "key.oneforall.web_zip": "Web Zip",
+  "key.oneforall.web_shot": "Web Shot",
+  "key.oneforall.wall_crawl": "Toggle Wall Crawl",
+  "key.oneforall.next_suit": "Next Suit",
+  "key.oneforall.spider_sense": "Spider-Sense",
   "key.oneforall.toggle": "Toggle One For All",
   "key.oneforall.blackwhip": "Blackwhip",
-  "key.oneforall.danger_sense": "Toggle Danger Sense",
-  "key.oneforall.detroit_smash": "Detroit Smash",
-  "key.oneforall.web_swing": "Web Swing",
-  "key.oneforall.web_zip": "Web Zip",
-  "key.oneforall.web_shot": "Web Shot"
+  "key.oneforall.danger_sense": "Danger Sense",
+  "key.oneforall.detroit_smash": "Detroit Smash"
 }
