@@ -88,7 +88,6 @@ public final class SpiderManAbilities {
             if (target == player) return;
             target.addVelocity(0, 0.28, 0);
             target.velocityModified = true;
-            target.timeUntilRegen = Math.max(target.timeUntilRegen, 8);
             player.getWorld().spawnParticles(ParticleTypes.SNOWFLAKE,
                     target.getX(), target.getBodyY(0.5), target.getZ(), 18, 0.35, 0.45, 0.35, 0.02);
             player.sendMessage(Text.literal("Web shot connected!"), true);
