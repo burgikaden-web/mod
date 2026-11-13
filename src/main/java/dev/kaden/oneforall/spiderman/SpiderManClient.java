@@ -16,6 +16,7 @@ import java.util.List;
 
 public final class SpiderManClient {
     private static int senseCooldown = 0;
+    private static boolean senseEnabled = true;
     private static KeyBinding swing, zip, shot, crawl, suit, sense;
 
     public void onInitializeClient() {
@@ -34,13 +35,14 @@ public final class SpiderManClient {
             while (crawl.wasPressed()) ClientPlayNetworking.send(SpiderManIds.TOGGLE_CRAWL, PacketByteBufs.empty());
             while (suit.wasPressed()) ClientPlayNetworking.send(SpiderManIds.NEXT_SUIT, PacketByteBufs.empty());
             while (sense.wasPressed()) {
-                client.player.sendMessage(Text.literal("Spider-Sense is active"), true);
+                senseEnabled = !senseEnabled;
+                client.player.sendMessage(Text.literal("Spider-Sense: " + (senseEnabled ? "ON" : "OFF")), true);
                 senseCooldown = 1;
             }
             if (senseCooldown > 0) senseCooldown--;
             List<HostileEntity> threats = client.world.getEntitiesByClass(HostileEntity.class,
                 client.player.getBoundingBox().expand(12.0), e -> e.isAlive() && !e.isRemoved());
-            if (!threats.isEmpty() && senseCooldown == 0) {
+            if (senseEnabled && !threats.isEmpty() && senseCooldown == 0) {
                 senseCooldown = 70;
                 client.player.sendMessage(Text.literal("⚠ SPIDER-SENSE — threat nearby!"), true);
                 client.player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_PLING, 0.8F, 1.8F);
