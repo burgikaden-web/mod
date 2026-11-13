@@ -23,6 +23,7 @@ public final class OneForAllMod implements ModInitializer {
     public void onInitialize() {
         OFANetwork.registerServerReceivers();
         SpiderManAbilities.register();
+        SpiderManSystems.register();
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             ServerPlayerEntity player = handler.player;
