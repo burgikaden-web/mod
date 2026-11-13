@@ -1,6 +1,7 @@
 package dev.kaden.oneforall.client;
 
 import dev.kaden.oneforall.network.OFAIds;
+import dev.kaden.oneforall.spiderman.SpiderManClient;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -28,6 +29,7 @@ public final class OneForAllClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        new SpiderManClient().onInitializeClient();
         toggleKey = register("key.oneforall.toggle", GLFW.GLFW_KEY_O);
         blackwhipKey = register("key.oneforall.blackwhip", GLFW.GLFW_KEY_R);
         dangerSenseKey = register("key.oneforall.danger_sense", GLFW.GLFW_KEY_G);
