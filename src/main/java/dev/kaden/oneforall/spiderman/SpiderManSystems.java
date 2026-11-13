@@ -94,7 +94,7 @@ public final class SpiderManSystems {
         if (crawl && player.horizontalCollision && !player.isFallFlying()) {
             player.setNoGravity(true);
             Vec3d v = player.getVelocity();
-            double climb = player.isSneaking() ? -0.12 : (player.isJumping() ? 0.18 : 0.0);
+            double climb = player.isSneaking() ? -0.12 : 0.12;
             player.setVelocity(v.x * 0.55, climb, v.z * 0.55);
             player.velocityModified = true;
             player.fallDistance = 0;
